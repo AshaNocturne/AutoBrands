@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/popup.css">
+</head>
+<body>
+
+    <!-- Main Content -->
+    <div id="mainContent">
+    <div class="header">
+        <h3 class="main-title" id="logoHomeBtn">
+            <span class="main-title-auto">AutoBrands</span>
+            <span class="main-title-hub">Hub</span>
+        </h3>
+        <div class="header-right">
+            <span class="version-badge">v2.0 by Autoparts</span>
+            <button id="openSettingsBtn" class="header-gear-btn" type="button" title="Налаштування" aria-label="Налаштування" aria-controls="settingsInlinePanel" aria-expanded="false">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="secondary-tabs" role="tablist" aria-label="Додаткові розділи">
+        <button id="mainTabParameters" class="secondary-tab-btn" type="button" role="tab" aria-selected="false" aria-controls="tabPanelParameters" data-tab="parameters">Параметри та значення</button>
+    </div>
+
+    <div class="main-tabs" role="tablist" aria-label="Розділи">
+        <button id="mainTabBrand" class="main-tab-btn is-active" type="button" role="tab" aria-selected="true" aria-controls="tabPanelBrand" data-tab="brand">Бренди</button>
+        <button id="mainTabLogistics" class="main-tab-btn" type="button" role="tab" aria-selected="false" aria-controls="tabPanelLogistics" data-tab="logistics">Логістика</button>
+    </div>
+
+    <div id="settingsInlinePanel" class="modern-card settings-inline-card" role="region" aria-label="Налаштування" style="display: none;" hidden>
+        <div class="settings-inline-option">
+            <div class="settings-inline-option-texts">
+                <div class="settings-inline-option-title">Копіювання коду Enterprise</div>
+                <div class="settings-inline-option-desc">Автоочистка артикулу при копіюванні для пошуку еталонки.</div>
+                <div id="enterprise-copy-state" class="settings-inline-option-state" aria-live="polite">Вимкнено</div>
+            </div>
+            <div class="settings-inline-control">
+                <button class="settings-hint-btn" type="button" aria-label="Підказка" data-tooltip="Видаляє пробіли, розділові знаки та кирилицю. Наприклад: 6ST-105 (0) AGM → 6ST1050AGM.">i</button>
+                <label class="settings-toggle" for="enterprise-copy-toggle">
+                    <input id="enterprise-copy-toggle" type="checkbox" />
+                    <span class="settings-toggle-slider" aria-hidden="true"></span>
+                </label>
+            </div>
+        </div>
+        <div class="settings-inline-option">
+            <div class="settings-inline-option-texts">
+                <div class="settings-inline-option-title">Гарячі клавіші</div>
+                <div class="settings-inline-option-desc">Швидке керування без прокрутки сторінки.</div>
+                <div id="hotkeys-state" class="settings-inline-option-state" aria-live="polite">Вимкнено</div>
+            </div>
+            <div class="settings-inline-control">
+                <button class="settings-hint-btn" type="button" aria-label="Підказка" data-tooltip="> / < — наступний/попередній, Ctrl/Cmd+S — зберегти, Ctrl/Cmd+R — зчитати, Ctrl/Cmd+G — відправити в Gomer.">i</button>
+                <label class="settings-toggle" for="hotkeys-toggle">
+                    <input id="hotkeys-toggle" type="checkbox" />
+                    <span class="settings-toggle-slider" aria-hidden="true"></span>
+                </label>
+            </div>
+        </div>
+        <div class="settings-inline-option">
+            <div class="settings-inline-option-texts">
+                <div class="settings-inline-option-title">Shortcut'и</div>
+                <div class="settings-inline-option-desc">Кнопки швидкого переходу до пов'язаних сторінок.</div>
+                <div id="shortcuts-state" class="settings-inline-option-state" aria-live="polite">Вимкнено</div>
+            </div>
+            <div class="settings-inline-control">
+                <button class="settings-hint-btn" type="button" aria-label="Підказка" data-tooltip="Додає переходи до товару в Gomer та еталонки прямо на сторінці товару/еталонки.">i</button>
+                <label class="settings-toggle" for="shortcuts-toggle">
+                    <input id="shortcuts-toggle" type="checkbox" />
+                    <span class="settings-toggle-slider" aria-hidden="true"></span>
+                </label>
+            </div>
+        </div>
+        <div class="settings-inline-option">
+            <div class="settings-inline-option-texts">
+                <div class="settings-inline-option-title">Звірення даних</div>
+                <div class="settings-inline-option-desc">Автоперевірка відповідності товару та еталонки.</div>
+                <div id="verification-state" class="settings-inline-option-state" aria-live="polite">Вимкнено</div>
+            </div>
+            <div class="settings-inline-control">
+                <button class="settings-hint-btn" type="button" aria-label="Підказка" data-tooltip="Порівнює артикул/бренд (або код/код пошуку) і підсвічує: зелений — збіг, жовтий — частково, червоний — помилка.">i</button>
+                <label class="settings-toggle" for="verification-toggle">
+                    <input id="verification-toggle" type="checkbox" />
+                    <span class="settings-toggle-slider" aria-hidden="true"></span>
+                </label>
+            </div>
+        </div>
+        <div class="settings-inline-actions" role="group" aria-label="Швидкі дії налаштувань">
+            <button id="settingsEnableAllBtn" class="settings-action-btn" type="button">Увімкнути все</button>
+            <button id="settingsDisableAllBtn" class="settings-action-btn" type="button">Вимкнути все</button>
+        </div>
+    </div>
+
+    <div id="tabPanelBrand" class="main-tab-panel is-active" role="tabpanel" aria-labelledby="mainTabBrand">
+
+    <div class="search-container">
+        <div class="search-wrapper">
+            <div class="search-field-container">
+                <input type="text" id="brandSearch" class="search-input" placeholder="Введіть назву бренду...">
+                <button id="clearSearch" class="icon-btn clear-btn" title="Очистити">✕</button>
+            </div>
+            
+            <select id="searchFilterSelect" class="search-filter-select" title="Вибір приставки">
+                <option value="all">Все</option>
+                <option value="fullName">Gomer</option>
+                <option value="enterpriseName">Enterprise</option>
+                <option value="prefix">Приставка</option>
+                <option value="synonyms">Синоніми</option>
+            </select>
+            
+            <button id="uploadFileBtn" class="icon-btn file-btn" title="Завантажити файл">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                    <polyline points="13 2 13 9 20 9"></polyline>
+                </svg>
+            </button>
+        </div>
+        <input type="file" id="fileUploadInput" accept=".txt,.csv,.xlsx,.xls" style="display: none;">
+        <div id="searchSuggestions" class="search-suggestions"></div>
+        <div id="searchHint" class="search-hint-inline" aria-live="polite" style="display:none;"></div>
+    </div>
+
+    <div id="columnSelectorBlock" class="column-selector-block">
+        <div id="columnSelectorHeader" class="sync-toggle-header sync-status-header column-selector-header">
+            <span class="column-selector-title sync-status-label">Налаштуйте колонки для експорту</span>
+            <div class="column-selector-header-right sync-status-right">
+                <button id="addColumnRuleBtn" class="column-add-first" type="button" aria-label="Додати параметр">+</button>
+                <span id="columnCollapseText" class="sync-collapse-btn expanded" aria-label="Згорнути/Розгорнути"></span>
+            </div>
+        </div>
+        <div id="columnSelectorBody" class="column-selector-body">
+            <div id="columnSelectorList" class="column-selector-list" aria-live="polite"></div>
+            <div class="column-selector-actions">
+                <button id="confirmColumnsBtn" class="column-btn-confirm">Підтвердити</button>
+                <button id="cancelColumnsBtn" class="column-btn-cancel">Скасувати</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="infoCard" class="modern-card" style="display: none;"></div>
+
+    <div id="CampResultsContainer" class="modern-card" style="display: none;">
+        <div id="resultsTitle" style="font-weight: 700; font-size: 12px; margin-bottom: 6px;">Результати:</div>
+        <div class="table-scroll-container">
+            <table class="camp-table">
+                <thead>
+                    <tr id="campTableHeadRow"></tr>
+                </thead>
+                <tbody id="campTableBody"></tbody>
+            </table>
+        </div>
+        <button id="exportBtn" class="export-btn">Зберегти звіт у Excel (.xlsx)</button>
+    </div>
+
+    <div id="historyContainer" class="modern-card">
+        <div>
+            <div id="syncToggleHeader" class="sync-toggle-header sync-status-header">
+                <div class="sync-status-left">
+                    <span class="sync-status-label">Синхронізація:</span>
+                    <span id="syncStatusBlock" class="sync-status-block" title="Очікування"></span>
+                </div>
+                <div class="sync-status-right">
+                    <span id="syncTimeBlock" class="sync-status-time">--.-- --:--</span>
+                    <button id="syncRefreshBtn" class="sync-refresh-btn" type="button">Оновити</button>
+                    <button id="downloadLogBtn" class="icon-btn sync-download-btn" title="Вивантажити історію змін в Excel">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                            <polyline points="7 3 7 8 15 8"></polyline>
+                        </svg>
+                    </button>
+                    <span id="syncCollapseText" class="sync-collapse-btn sync-collapse-icon"></span>
+                </div>
+            </div>
+            <div id="syncReasonBlock" class="sync-reason-block"></div>
+            <div id="changeLogFilters" class="change-log-filters" aria-label="Фільтр змін" style="display: none;">
+                <button id="changeFilterAll" class="change-filter-btn active" type="button">Все</button>
+                <button id="changeFilterAdded" class="change-filter-btn" type="button">Додано</button>
+                <button id="changeFilterModified" class="change-filter-btn" type="button">Змінено</button>
+                <button id="changeFilterRemoved" class="change-filter-btn" type="button">Видалено</button>
+                <button id="changeFilterArchived" class="change-filter-btn" type="button">Архів</button>
+            </div>
+            <div id="dbChangesLog" class="db-changes-container"></div>
+            <div id="changeFilterCount" class="change-filter-count" aria-live="polite"></div>
+            <div id="changeLogPagination" class="change-log-pagination" aria-label="Пагінація змін" style="display: none;"></div>
+        </div>
+    </div>
+
+    <div id="requestContainer" class="modern-card">
+        <div class="sync-toggle-header" id="requestToggleHeader" style="margin-bottom: 10px;">
+            <div class="sync-status-left">
+                <span id="requestStatusBlock" class="sync-status-label">Запити:</span>
+            </div>
+            <div class="sync-status-right">
+                <span id="requestCount">0</span>
+                <span id="requestCollapseText" class="sync-collapse-btn" aria-label="Згорнути/Розгорнути"></span>
+            </div>
+        </div>
+        <div id="requestChangesLog" class="db-changes-container"></div>
+    </div>
+
+    <div class="feedback-container">
+        <button id="toggleFeedbackBtn" class="feedback-toggle-btn">Подати запит</button>
+        <div id="feedbackFormBlock" class="feedback-form-block">
+
+            <div class="feedback-group">
+                <label>Бренд:</label>
+                <input type="text" id="feedbackBrandInput" class="feedback-input" placeholder="Введіть бренд або залиште порожнім...">
+                <div id="feedbackBrandSuggestions" class="feedback-suggestions"></div>
+            </div>
+
+            <div class="feedback-group">
+                <label for="feedbackCategory">Причина:</label>
+                <div class="feedback-select-wrap">
+                    <select id="feedbackCategory" class="feedback-select feedback-select-caret">
+                        <option value="Помилка в даних бренду">Помилка в даних бренду</option>
+                        <option value="Невірний префікс">Невірний префікс</option>
+                        <option value="Додати новий бренд">Додати новий бренд</option>
+                        <option value="Невірна додаткова інформація">Невірна додаткова інформація</option>
+                        <option value="Некоректний статус бренду">Некоректний статус бренду</option>
+                        <option value="Інше">Інше</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="feedback-group">
+                <label for="feedbackMessage">Опис:</label>
+                <textarea id="feedbackMessage" class="feedback-textarea" maxlength="1200" placeholder="Опишіть запит коротко і по суті..."></textarea>
+            </div>
+
+            <div class="feedback-group">
+                <label for="feedbackManager">Контент-менеджер:</label>
+                <input type="text" id="feedbackManager" class="feedback-input" placeholder="Ваше ім'я...">
+            </div>
+
+            <button id="submitFeedbackBtn" class="feedback-submit-btn">Надіслати</button>
+        </div>
+    </div>
+
+    </div>
+
+    <div id="tabPanelLogistics" class="main-tab-panel" role="tabpanel" aria-labelledby="mainTabLogistics" style="display: none;">
+        <div class="modern-card coming-soon-card">
+            <div class="logistics-dev-illustration" aria-hidden="true">
+                <svg viewBox="0 0 180 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M24 62H45L60 38H114L132 62H156C161.523 62 166 66.4772 166 72V74H14V72C14 66.4772 18.4772 62 24 62Z" fill="#f0f4ff" stroke="#90a1c8" stroke-width="2"/>
+                    <path d="M70 38V30C70 25.5817 73.5817 22 78 22H102C106.418 22 110 25.5817 110 30V38" stroke="#90a1c8" stroke-width="2"/>
+                    <rect x="68" y="44" width="44" height="14" rx="4" fill="#ffffff" stroke="#90a1c8" stroke-width="2"/>
+                    <circle cx="52" cy="74" r="11" fill="#ffffff" stroke="#5a6378" stroke-width="3"/>
+                    <circle cx="128" cy="74" r="11" fill="#ffffff" stroke="#5a6378" stroke-width="3"/>
+                    <path d="M82 49H98" stroke="#90a1c8" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M32 32L44 44" stroke="#de5f5f" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M44 32L32 44" stroke="#de5f5f" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M122 16L136 30" stroke="#5a6378" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M132 12L140 20" stroke="#5a6378" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M118 20L126 28" stroke="#5a6378" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="coming-soon-title">Логістика в ремонті</div>
+            <div class="coming-soon-text">Машинка зламалась, лагодимо модуль. Розділ логістики зараз у розробці.</div>
+        </div>
+    </div>
+
+    <div id="tabPanelParameters" class="main-tab-panel" role="tabpanel" aria-labelledby="mainTabParameters" style="display: none;">
+
+    <div id="parametersHistoryContainer" class="modern-card">
+        <div>
+            <div id="parametersToggleHeader" class="sync-toggle-header sync-status-header">
+                <div class="sync-status-left">
+                    <span class="sync-status-label">Синхронізація:</span>
+                    <span id="parametersStatusBlock" class="sync-status-block" title="Очікування"></span>
+                </div>
+                <div class="sync-status-right">
+                    <span id="parametersTimeBlock" class="sync-status-time">--.-- --:--</span>
+                    <button id="parametersRefreshBtn" class="sync-refresh-btn" type="button">Оновити</button>
+                    <button id="parametersDownloadLogBtn" class="icon-btn sync-download-btn" title="Вивантажити історію змін в Excel">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                            <polyline points="7 3 7 8 15 8"></polyline>
+                        </svg>
+                    </button>
+                    <span id="parametersCollapseText" class="sync-collapse-btn" aria-label="Згорнути/Розгорнути"></span>
+                </div>
+            </div>
+            <div id="parametersReasonBlock" class="sync-reason-block"></div>
+            <div id="parametersChangeLogFilters" class="change-log-filters" aria-label="Фільтр змін" style="display: none;">
+                <button id="parametersChangeFilterAll" class="change-filter-btn active" type="button">Все</button>
+                <button id="parametersChangeFilterAdded" class="change-filter-btn" type="button">Додано</button>
+                <button id="parametersChangeFilterModified" class="change-filter-btn" type="button">Змінено</button>
+                <button id="parametersChangeFilterRemoved" class="change-filter-btn" type="button">Видалено</button>
+                <button id="parametersChangeFilterArchived" class="change-filter-btn" type="button">Архів</button>
+            </div>
+            <div id="parametersChangesLog" class="db-changes-container"></div>
+            <div id="parametersFilterCount" class="change-filter-count" aria-live="polite"></div>
+            <div id="parametersChangeLogPagination" class="change-log-pagination" aria-label="Пагінація змін" style="display: none;"></div>
+        </div>
+    </div>
+
+    </div>
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Зовнішня бібліотека -->
+    <script src="xlsx.full.min.js"></script>
+
+    <!-- Модулі розширення (порядок важливий) -->
+    <script src="js/config.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/excel.js"></script>
+    <script src="js/fileProcessor.js"></script>
+    <script src="js/feedback.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>

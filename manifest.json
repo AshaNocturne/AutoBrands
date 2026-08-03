@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "Auto Brands Hub",
+  "version": "2.0",
+  "description": "Зручний довідник параметрів брендів автозапчастин.",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "downloads",
+    "notifications",
+    "scripting",
+    "activeTab"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://autopart.rozetka.company/*"
+      ],
+      "js": [
+        "js/content_copy.js",
+        "js/hotkeys.js",
+        "js/shortcuts.js",
+        "js/verification.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://gomer.rozetka.company/*"
+      ],
+      "js": [
+        "js/shortcuts.js"
+      ]
+    }
+  ],
+  "host_permissions": [
+    "https://docs.google.com/*",
+    "https://script.google.com/*",
+    "https://autopart.rozetka.company/*",
+    "https://gomer.rozetka.company/*"
+  ]
+}
